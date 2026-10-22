@@ -8,10 +8,10 @@ const dateFrameBars = [
 ];
 
 const flourishes = [
-  { src: "/images/flourish-top-left.png", height: 520, position: "left-[10px] top-[10px]" },
-  { src: "/images/flourish-top-right.png", height: 520, position: "right-[10px] top-[10px]" },
-  { src: "/images/flourish-bottom-left.png", height: 501, position: "bottom-[10px] left-[10px]" },
-  { src: "/images/flourish-bottom-right.png", height: 501, position: "bottom-[10px] right-[10px]" },
+  { src: "/images/flourish-top-left.webp", height: 520, position: "left-[10px] top-[10px]" },
+  { src: "/images/flourish-top-right.webp", height: 520, position: "right-[10px] top-[10px]" },
+  { src: "/images/flourish-bottom-left.webp", height: 501, position: "bottom-[10px] left-[10px]" },
+  { src: "/images/flourish-bottom-right.webp", height: 501, position: "bottom-[10px] right-[10px]" },
 ];
 
 export default function Home() {
@@ -46,7 +46,7 @@ export default function Home() {
       </nav>
 
       <Image
-        src="/images/couple.png"
+        src="/images/couple.webp"
         alt="Illustration of a bride and groom"
         width={1023}
         height={1330}

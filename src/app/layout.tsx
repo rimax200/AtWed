@@ -17,8 +17,15 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://atwed.org"),
   title: "AtWed | Coming Soon",
   description: "A platform to teach biblical principles of marriage.",
+  icons: { icon: "/images/favicon.png" },
+  openGraph: {
+    title: "AtWed | Coming Soon",
+    description: "A platform to teach biblical principles of marriage.",
+    images: [{ url: "/images/og.png", width: 538, height: 700 }],
+  },
 };
 
 export const viewport: Viewport = {
