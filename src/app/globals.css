@@ -1,26 +1,38 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-infant: var(--font-cormorant-infant), serif;
+  --font-garamond: var(--font-cormorant-garamond), serif;
+  --color-ink: #2d2926;
+  --color-muted: #978a80;
+  --color-line: #d8d0c8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* One Figma px at the 1512px design width, clamped to ~70%-115% */
+:root {
+  --u: clamp(0.7px, calc(100vw / 1512), 1.15px);
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+}
+
+@utility text-label {
+  font-size: calc(20 * var(--u));
+  letter-spacing: 0.06em;
+  line-height: 0.9;
+}
+
+@utility text-nav {
+  font-size: calc(14 * var(--u));
+  letter-spacing: 0.06em;
+  line-height: 0.9;
 }
