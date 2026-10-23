@@ -99,7 +99,7 @@ export default function Home() {
           The Coming Soon Experience of
         </p>
         <h1 className="text-[length:clamp(44px,14vw,72px)] font-normal capitalize leading-none text-ink desk:w-[calc(348*var(--u))] desk:text-center desk:text-[length:calc(72*var(--u))]">
-          AtWed
+          AtWED
         </h1>
         <p className="max-w-[260px] text-label capitalize text-muted desk:w-[calc(232*var(--u))] desk:max-w-none">
           A platform to teach biblical principles of marriage.
