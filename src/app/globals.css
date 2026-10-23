@@ -8,9 +8,16 @@
   --color-line: #d8d0c8;
 }
 
+@custom-variant desk {
+  @media (min-width: 1024px), (min-width: 640px) and (orientation: landscape) {
+    @slot;
+  }
+}
+
 /* One Figma px at the 1512px design width, clamped to ~70%-115% */
 :root {
   --u: clamp(0.7px, calc(100vw / 1512), 1.15px);
+  --v: calc(100dvh / 861);
 }
 
 html,
@@ -26,13 +33,21 @@ body {
 }
 
 @utility text-label {
-  font-size: calc(20 * var(--u));
+  font-size: var(--fs, 14px);
   letter-spacing: 0.06em;
   line-height: 0.9;
+
+  @variant desk {
+    font-size: calc(20 * var(--u));
+  }
 }
 
 @utility text-nav {
-  font-size: calc(14 * var(--u));
+  font-size: 11px;
   letter-spacing: 0.06em;
   line-height: 0.9;
+
+  @variant desk {
+    font-size: calc(14 * var(--u));
+  }
 }
