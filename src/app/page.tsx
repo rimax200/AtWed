@@ -48,7 +48,7 @@ export default function Home() {
         <span className="order-first flex basis-full justify-center desk:order-none desk:basis-auto">
           <Image
             src="/images/logo.png"
-            alt="AtWed"
+            alt="AtWED"
             width={125}
             height={50}
             priority
