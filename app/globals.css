@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens, extracted from the Figma file (desktop frame, 1512px wide).
+ * The design has no mobile frame: fluid values use clamp() with the Figma
+ * desktop value as the maximum and a mobile minimum chosen for readability.
+ */
+@theme {
+  /* Colours */
+  --color-white: #ffffff;
+  --color-cream: #f4f1ed;
+  --color-ink: #2d2926;
+  --color-ink-strong: #252525;
+  --color-brown: #522c0f;
+  --color-taupe: #978a80;
+  --color-sand: #d8d0c8;
+  --color-gold: #cdb371;
+  --color-gold-light: #ffebba;
+  --color-sage: #6f947f;
+  --color-track: #f1f1f1;
+  --color-reminder: #ff0000; /* Set Reminder button fill (Figma value) */
+  --color-reminder-dark: #d90000;
+  --color-black-60: rgba(0, 0, 0, 0.6); /* hero tagline */
+  --color-black-50: rgba(0, 0, 0, 0.5); /* hero "About AtWED" link */
+
+  /* Fonts (variables set by next/font in app/layout.tsx) */
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-inter), system-ui, sans-serif;
+  --font-accent: var(--font-lustria), Georgia, serif;
+
+  /* Fluid type scale: clamp(mobile, fluid, Figma desktop) */
+  --text-display: clamp(2.5rem, 1.6rem + 4vw, 4.5rem); /* 72px */
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.04em;
+  --text-statement: clamp(1.375rem, 1rem + 1.6vw, 2rem); /* 32px */
+  --text-statement--line-height: 1.1;
+  --text-statement--letter-spacing: -0.03em;
+  --text-lead: clamp(1.125rem, 0.9rem + 0.9vw, 1.625rem); /* 26px */
+  --text-lead--line-height: 1.4;
+  --text-quote: clamp(1.125rem, 0.95rem + 0.7vw, 1.72rem); /* 27.5px */
+  --text-quote--line-height: 1.4;
+  --text-card: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem); /* 24px */
+  --text-card--line-height: 1.2;
+  --text-time: clamp(2rem, 1.5rem + 2vw, 2.625rem); /* 42px */
+  --text-time--line-height: 1.2;
+  --text-tagline: clamp(1.25rem, 0.9rem + 1.5vw, 2rem); /* 32px, hero tagline */
+  --text-tagline--line-height: 1.2;
+  --text-tagline--letter-spacing: -0.02em;
+  --text-eyebrow: clamp(0.9375rem, 0.85rem + 0.4vw, 1.25rem); /* 20px */
+  --text-eyebrow--line-height: 0.9;
+  --text-eyebrow--letter-spacing: 0.06em;
+  --text-nav: 0.875rem; /* 14px */
+  --text-nav--line-height: 0.9;
+  --text-nav--letter-spacing: 0.06em;
+  --text-button: 1.25rem; /* 20px, Cormorant */
+  --text-button--line-height: 1.2;
+  --text-button--letter-spacing: -0.02em;
+  --text-button-cta: 1.1875rem; /* 19px, Inter */
+  --text-button-cta--line-height: 1.2;
+  --text-button-cta--letter-spacing: -0.01em;
+  --text-label: 1.125rem; /* 18px, Inter */
+  --text-label--line-height: 1;
+  --text-label--letter-spacing: -0.02em;
+
+
+  /* Radii */
+  --radius-track: 4px;
+  --radius-card: 10px;
+  --radius-pill: 25px;
+
+  /* Shadows (hero pill button) */
+  --shadow-pill:
+    0 9.4px 19.8px rgba(202, 202, 202, 0.25), 0 8.3px 13.6px rgba(0, 0, 0, 0.25),
+    0 5.2px 7.3px rgba(0, 0, 0, 0.12);
+
+  /* Breakpoints: the design only has a 1512px frame, so use Tailwind defaults */
+}
+
+:root {
+  /* Layout: content width is 1512 - 2 * 64 = 1384px at the design size */
+  --container-max: 1512px;
+  --gutter: clamp(1rem, 0.4rem + 2.4vw, 4rem);
+  --section-y: clamp(3rem, 2rem + 3vw, 5rem);
+  --reveal-distance: 24px;
+  --nav-h: 4.25rem;
+
+  /* Vision & Mission: white band around the photo (Figma 49.5px) and padding around the book */
+  --vm-band: clamp(1.5rem, 3.28vw, 3.09rem);
+  --vm-inner: clamp(2rem, 4.5vw, 4.5rem);
+
+  /* Hero (Figma 1512 x 939) */
+  --hero-pt: clamp(5.5rem, 3rem + 7.5vw, 10.125rem); /* 162px */
+  --hero-gap: clamp(1rem, 1.66vw, 1.5625rem); /* 25px */
+  --hero-rings-gap: clamp(1rem, 1.72vw, 1.625rem); /* 26px */
+  --flourish-w: clamp(6rem, 16.53vw, 15.625rem); /* 250px */
+  --flourish-inset: clamp(0.25rem, 0.66vw, 0.625rem); /* 10px */
+  --flourish-bottom: clamp(0.5rem, 5.82vw, 5.5rem); /* 88px */
+
+  /* Hero pill button: Figma radial gradient (ellipse 638 x 184px centred 153px
+     above the 46px-tall button, so only its 83%..100% stops are visible) */
+  --gradient-pill: radial-gradient(
+    ellipse 638px 183.7px at 50% -152.9px,
+    #303030 81.25%,
+    #202020 87.5%,
+    #101010 93.75%,
+    #080808 96.875%,
+    #000 100%
+  );
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Smooth scrolling is handled by Lenis (components/SmoothScroll.tsx) */
+}
+
+body {
+  margin: 0;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile nav open: block native scroll (Lenis is bypassed by data-lenis-prevent) */
+html.menu-open {
+  overflow: hidden;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Reveal: animates only opacity + transform. will-change lives only while animating. */
+.reveal {
+  opacity: 0;
+  transform: translate3d(var(--reveal-x, 0), var(--reveal-y, 0), 0) scale(var(--reveal-scale, 1));
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal[data-state="animating"] {
+  opacity: 1;
+  transform: none;
+  will-change: opacity, transform;
+}
+.reveal[data-state="done"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 767px) {
+  .reveal-mobile-up {
+    --reveal-x: 0px !important;
+    --reveal-y: var(--reveal-distance) !important;
+  }
+}
+
+/* Objectives timeline stars: transform + opacity only */
+.star {
+  opacity: 0.4;
+  transform: scale(0.8);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+.star[data-active="true"] {
+  opacity: 1;
+  transform: scale(1);
+  animation: star-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes star-pop {
+  0% {
+    transform: scale(0.8);
+  }
+  60% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* FAQ accordion: grid-rows height trick (no JS measuring). Star uses transform + the `scale` property. */
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-out;
+}
+.faq-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.faq-panel > div {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+.faq-panel[data-open="true"] > div {
+  opacity: 1;
+}
+.faq-star {
+  transition:
+    transform 0.3s ease-out,
+    scale 0.3s ease-out;
+}
+.faq-star[data-open="true"] {
+  transform: rotate(45deg);
+}
+.faq-question {
+  transition: color 0.3s ease-out;
+}
+@media (hover: hover) {
+  .faq-question:hover {
+    color: var(--color-brown);
+  }
+  .faq-question:hover .faq-star {
+    scale: 1.12;
+  }
+}
+
+/* Footer: Figma overlay (black 60% to the 22.6% mark, then fading out upwards). On mobile the
+   photo block is taller (content sits under the hands), so keep it solid longer for legibility. */
+.footer-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 55%, rgba(0, 0, 0, 0));
+}
+@media (min-width: 768px) {
+  .footer-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 22.596%, rgba(255, 255, 255, 0));
+  }
+}
+
+/* Footer social links: opacity brightening + lift only where hover exists */
+.social-link {
+  opacity: 0.85;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+}
+.social-link:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .social-link:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-panel,
+  .faq-panel > div,
+  .faq-star,
+  .faq-question {
+    transition: none !important;
+  }
+  .star {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+  .timeline-progress {
+    transform: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}

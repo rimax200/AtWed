@@ -1,5 +1,6 @@
 {
   "name": "atwed",
   "compatibility_date": "2026-10-19",
-  "assets": { "directory": "./out" }
+  "assets": { "directory": "./out" },
+  "previews": {}
 }

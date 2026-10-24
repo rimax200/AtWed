@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AtWED ("About To Wed")
 
-## Getting Started
+Single-page marketing site for a marriage counselling and premarital education platform.
 
-First, run the development server:
+Stack: Next.js (App Router) + TypeScript + Tailwind CSS v4, static export, Lenis for smooth scroll.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Commands
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `npm run dev`: local dev server
+- `npm run build`: static export to `out/` (deploy this folder to Cloudflare)
+- `npm run lint`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/globals.css`: design tokens (`@theme`, Tailwind v4 has no `tailwind.config`), base styles, reduced-motion block
+- `components/Container.tsx`, `components/Section.tsx`: layout primitives
+- `components/Reveal.tsx`, `hooks/useParallax.ts`, `components/SmoothScroll.tsx`: animation primitives
 
-## Learn More
+## Performance rules
 
-To learn more about Next.js, take a look at the following resources:
+**Images**
+- Use WebP/AVIF, never PNG/JPG for photos.
+- Always set explicit `width` and `height`.
+- `loading="lazy"` for everything below the fold; `priority` / `fetchPriority="high"` only for the hero image.
+- `images.unoptimized` is on (static export), so export correctly sized files by hand.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**No layout shift**
+- Reserve space for images, fonts and embeds. Never insert content above existing content after load.
+- Fonts use `next/font` with `display: swap` and only the weights used.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Animation**
+- Animate only `transform` and `opacity`.
+- Set `will-change` only while an animation is running, then remove it (`Reveal` and `useParallax` already do this).
+- Everything must degrade under `prefers-reduced-motion` (handled globally in `globals.css`, in `Reveal`, `useParallax` and `SmoothScroll`).
+- No other animation libraries. Lenis is the only one.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**CSS**
+- Mobile-first: base styles are for small screens, add `md:` / `lg:` for larger.
+- Prefer fluid `clamp()` tokens over many breakpoints.
